@@ -1,8 +1,14 @@
 from django.http import HttpResponse
 from django.shortcuts import render_to_response
 from django.contrib.auth import authenticate, login
+from django.core.paginator import Paginator, InvalidPage, EmptyPage
+from django.core.urlresolvers import reverse
+
+from barter.models import *
 
 def index(request):
+    return render_to_response('barter/index.html')
+def hello(request):
    return HttpResponse("Hello World!")
 def login_user(request):
    state = "Please log in below..."

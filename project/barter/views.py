@@ -20,4 +20,4 @@ def login_user(request):
 	    state = "not active"
       else:
 	 state = "Incorrect";
-   return render_to_response('auth.html',{'state':state, 'username': username})
+   return render_to_response('barter/auth.html',{'state':state, 'username': username})

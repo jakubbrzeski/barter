@@ -5,9 +5,15 @@ from django.core.paginator import Paginator, InvalidPage, EmptyPage
 from django.core.urlresolvers import reverse
 
 from barter.models import *
+from django.forms import ModelForm
 
-def index(request):
-    return render_to_response('barter/index.html')
+def add(request):
+   announcement = Announcement()
+   announcement.author = "Guest"
+   announcement.body = "I will exchange pig for a cow."
+   return render_to_response('barter/add.html',{'announcement':announcement})
+def base(request):
+    return render_to_response('barter/base.html')
 def hello(request):
    return HttpResponse("Hello World!")
 def login_user(request):

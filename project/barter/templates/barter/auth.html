@@ -14,7 +14,7 @@ body{
 <body bgcolor="pink">
 <div id="sidebar"> {% block sidebar %} {% endblock %} </div>
    {{ state }}
-    <form action="/login/" method="post">
+    <form action="login/" method="post">
 	    {% if next %}
 		  <input type="hidden" name="next" value="{{ next }}" />
 		{% endif %}

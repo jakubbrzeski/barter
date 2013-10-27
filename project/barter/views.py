@@ -1,12 +1,11 @@
 from django.http import HttpResponse
 from django.shortcuts import render_to_response
-from django.contrib.auth import authenticate, login
 from django.core.paginator import Paginator, InvalidPage, EmptyPage
 from django.core.urlresolvers import reverse
 
 from barter.models import *
 from django.forms import ModelForm
-
+import barter.authentication as A
 def add(request):
    announcement = Announcement()
    announcement.author = "Guest"
@@ -16,20 +15,15 @@ def base(request):
     return render_to_response('barter/base.html')
 def hello(request):
    return HttpResponse("Hello World!")
-def login_user(request):
-   state = "Please log in below..."
-   username = password = ''
-   if request.POST:
-      username = request.POST.get('username')
-      password = request.POST.get('password')
+def register(request):
+   if A.addUser(request) is True:
+      return render_to_response('barter/base.html')
+   else:
+      return render_to_response('barter/addUser.html')
 
-      user = authenticate(username=username, password=password)
-      if user is not None:
-	 if user.is_active:
-	    login(request,user)
-	    state="You're logged in"
-	 else:
-	    state = "not active"
-      else:
-	 state = "Incorrect";
-   return render_to_response('barter/auth.html',{'state':state, 'username': username})
+def login_user(request):
+   if A.auth(request) is True:
+      return HttpResponse("OK!")
+ 
+   state = "Please log in below..."
+   return render_to_response('barter/auth.html',{'state':state})   

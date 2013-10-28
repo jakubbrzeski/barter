@@ -19,7 +19,7 @@ textarea{
 
 <div id="addc">Add announcement</div>
 <!-- announcement form  -->
-<form method="POST">{% csrf_token %}
+<form action="/barter/add/" method="post">
     <div id="cform">
         Author: <input type="text" name="author" value="{{ announcement.author }}" /><br/>
 		<textarea>
@@ -28,5 +28,6 @@ textarea{
     </div>
     <div id="submit"><input type="submit" value="Submit"></div>
 </form>
+<a href='/barter/'>Glowna</a>
 </body>
 </html>

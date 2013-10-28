@@ -14,7 +14,7 @@
 <body bgcolor="pink">
    <div id="sidebar"> {% block sidebar %} {% endblock %} </div>
    {{ state }}
-   <form action="register/" method="post">
+   <form action="/barter/register/" method="post">
       {% if next %}
       <input type="hidden" name="next" value="{{ next}}" />
       {% endif %}

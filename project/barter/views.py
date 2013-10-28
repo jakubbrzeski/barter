@@ -8,22 +8,31 @@ from django.forms import ModelForm
 import barter.authentication as A
 def add(request):
    announcement = Announcement()
-   announcement.author = "Guest"
+   announcement.author = request.user.username
    announcement.body = "I will exchange pig for a cow."
    return render_to_response('barter/add.html',{'announcement':announcement})
+def log_out(request):
+   A.log_out(request)
+   return base(request)
+
 def base(request):
-    return render_to_response('barter/base.html')
-def hello(request):
-   return HttpResponse("Hello World!")
+   greeting = ""
+   link = False
+   if request.user.is_authenticated():
+      link = True
+      greeting = "Witaj " + request.user.username
+   return render_to_response('barter/base.html',{'link':link,'greeting':greeting})
 def register(request):
-   if A.addUser(request) is True:
-      return render_to_response('barter/base.html')
+   user = A.addUser(request)
+   if user is not None:
+      return base(request)
    else:
       return render_to_response('barter/addUser.html')
 
 def login_user(request):
-   if A.auth(request) is True:
-      return HttpResponse("OK!")
+   user = A.auth(request)
+   if user is not None:
+      return base(request)
  
    state = "Please log in below..."
    return render_to_response('barter/auth.html',{'state':state})   

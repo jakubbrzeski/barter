@@ -149,6 +149,15 @@ color:#BDCDEC;
 margin-top:25px;
 }
 
+#logInput
+{
+margin-left:60px;
+}
+
+#passInput
+{
+margin-left:63px;
+}
 
 
 html, body {
